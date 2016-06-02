@@ -16,6 +16,8 @@ Depart de la recursivite
 | nb_noeuds | `1202`
 | nb_solutions | `9`
 
+---
+
 > Lecture Fichier `assets/pieces_5x5.txt`
 
 ## Generator 5
@@ -30,6 +32,8 @@ Depart de la recursivite
 | temps (sec) | `0.035738`
 | nb_noeuds | `23759`
 | nb_solutions | `13`
+
+---
 
 > Lecture Fichier `assets/pieces_6x6.txt`
 
