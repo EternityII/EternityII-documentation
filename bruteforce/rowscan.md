@@ -10,9 +10,9 @@ Depart de la recursivite
 
 |  |  |
 | --- | ---:
-| Premiere solution temps (sec) | `0.000155`
+| Premiere solution temps (sec) | `0.000279`
 | nb_noeuds_first | `166`
-| temps (sec) | `0.001029`
+| temps (sec) | `0.00183`
 | nb_noeuds | `1202`
 | nb_solutions | `9`
 
@@ -28,10 +28,11 @@ Depart de la recursivite
 
 |  |  |
 | --- | ---:
-| Premiere solution temps (sec) | `-0.000998`
-| temps (sec) | `0.035738`
+| Premiere solution temps (sec) | `0.019104`
+| nb_noeuds_first | `10194`
+| temps (sec) | `0.040141`
 | nb_noeuds | `23759`
-| nb_solutions | `13`
+| nb_solutions | `4`
 
 ---
 
@@ -45,8 +46,19 @@ Depart de la recursivite
 
 |  |  |
 | --- | ---:
-| Premiere solution temps (sec) | `-0.036878`
-| temps (sec) | `36.4487`
+| Premiere solution temps (sec) | `0.320657`
+| nb_noeuds_first | `145233`
+| temps (sec) | `35.528`
 | nb_noeuds | `16004458`
-| nb_solutions | `78`
+| nb_solutions | `65`
+
+---
+
+> Lecture Fichier `assets/pieces_7x7.txt`
+
+## Generator 7
+
+### parcoursRowScan()
+
+Depart de la recursivite
 
