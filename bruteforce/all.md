@@ -7,7 +7,7 @@
 ### multipleGeneration()
 
 | Type Parcours | Nombre de noeuds first | Temps first (sec) | Nombre de noeuds all | Temps all (sec) | Nombre de solutions
-| --- | ---: | ---: | ---: | ---:
+| --- | ---: | ---: | ---: | ---: | ---:
 | row | `166` | `0.000201` | `1202` | `0.001595` | `9`
 | diagonal | `457` | `0.000553` | `2126` | `0.002564` | `9`
 | spirale_in | `1357` | `0.001518` | `3216` | `0.003629` | `9`
@@ -22,7 +22,7 @@
 ### multipleGeneration()
 
 | Type Parcours | Nombre de noeuds first | Temps first (sec) | Nombre de noeuds all | Temps all (sec) | Nombre de solutions
-| --- | ---: | ---: | ---: | ---:
+| --- | ---: | ---: | ---: | ---: | ---:
 | row | `10194` | `0.02347` | `23759` | `0.056545` | `4`
 | diagonal | `56767` | `0.119206` | `75486` | `0.160089` | `4`
 | spirale_in | `33702` | `0.086007` | `61931` | `0.167123` | `4`
@@ -37,7 +37,7 @@
 ### multipleGeneration()
 
 | Type Parcours | Nombre de noeuds first | Temps first (sec) | Nombre de noeuds all | Temps all (sec) | Nombre de solutions
-| --- | ---: | ---: | ---: | ---:
+| --- | ---: | ---: | ---: | ---: | ---:
 | row | `145233` | `0.505312` | `16004458` | `36.9561` | `65`
 | diagonal | `2212939` | `4.43591` | `115333679` | `276.519` | `65`
 | spirale_in | `5048507` | `16.2233` | `97937587` | `364.801` | `65`
@@ -52,5 +52,5 @@
 ### multipleGeneration()
 
 | Type Parcours | Nombre de noeuds first | Temps first (sec) | Nombre de noeuds all | Temps all (sec) | Nombre de solutions
-| --- | ---: | ---: | ---: | ---:
+| --- | ---: | ---: | ---: | ---: | ---:
 | row | `10548049` | `31.7344`
