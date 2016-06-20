@@ -1,0 +1,205 @@
+digraph eternityII{
+
+    newrank=true;
+
+    node [
+        //fontname = "Source Code Pro"
+        //fontsize = 12
+        shape="record"
+        fixedsize=false
+    ]
+
+
+    //nodesep=1.0
+
+    edge [
+        //fontname = "Source Code Pro"
+        //fontsize = 8
+        //fontcolor= blue
+        style=dashed
+        dir=both
+        arrowtail=none
+    ]
+
+    subgraph clusterPathFinder{
+        label = "PathFinder"
+        path
+        pvalue
+        cvariable
+        value
+        variable
+    }
+
+    subgraph clusterSolver{
+        label=Solver
+        solver
+        pcsolver
+    }
+
+    subgraph clusterModel{
+        label=Model
+        model
+        cmodel
+        pmodel
+    }
+
+    subgraph clusterObs{
+        label="Observer-Observable"
+        observer
+        observable
+    }
+
+    {rank=source; solver pcsolver}
+    {rank=same; constraint pcconstraint}
+    {rank=same; model observable}
+    /*
+    * Core
+    */
+    path [label = "{PathFinder
+        |
+        - variable : unique_ptr&lt;VariableInterface&gt;\l
+        - value : unique_ptr&lt;ValueInterface&gt;\l
+        |
+        + set(unique_ptr&lt;VariableInterface&gt;) : void\l
+        + set(unique_ptr&lt;ValueInterface&gt;) : void\l
+        + nextValue(DataInterface &) : DataInterface\l
+        + nextVariable(int &) : DataInterface\l
+    }"]
+
+    /*
+    * Interfaces
+    */
+    constraint   [
+        label = " { «ConstraintInterface»
+            |
+            //TOADAPT
+            # first : ModelInterface &\l
+            # second : ModelInterface &\l
+            |
+            + rollback(int &depth) : void
+        }"
+    ]
+
+    solver [
+        label = "{ «SolverInterface»
+            ||
+            + initialize(PathFinder &) : void\l
+            + resolve() : void
+        }"
+    ]
+    model [label = "{ «ModelInterface»
+        ||
+        + rollback(int &depth) : void\l
+    }"]
+    value [label = "{ «ValueInterface»
+        ||
+        + initialize(GameData &) : void\l
+        + next(DataInterface &) : DataInterface\l
+    }"]
+    variable [label = "{ «VariableInterface»
+        ||
+        + initialize(GameData &) : void\l
+        + next(int &depth) : DataInterface\l
+    }"]
+
+    data [label = "{ «DataInterface»}"]
+
+    observer [label = " { «ObserverInterface»
+        ||
+        //TOADAPT\l
+        + accepted(DataInterface &) : void\l
+        + discarded(DataInterface &) : void\l
+    }"]
+
+    observable [label = "{ «ObservableInterface»
+        |
+        # observers:vector&lt;Observer *&gt;\l
+        |
+        + add(Observer &) : void\l
+        + remove(int &) : void\l
+        + accept(DataInterface &) : void\l
+        + discard(DataInterface &) : void\l
+    }"]
+
+    /*
+    * classes
+    */
+    pcsolver [label = "{PieceCaseSolver
+        |
+        - pathFinder : PathFinder *\l
+        |
+        - resolve(int &depth) : void\l
+        - resolve(VariableData &, int &) : void\l
+        - isValid(PieceData &) : bool\l
+        - isValid(CaseData &) : bool\l
+    }"]
+
+    pcconstraint [label = "{PieceCaseConstraint
+        ||
+        + accept(CaseData &): void\l
+        + accept(PieceData &): void\l
+        + discard(CaseData &): void\l
+        + discard(PieceData &): void\l
+
+    }"]
+    pmodel [label = "{PieceModel
+        |
+        + casesQte: vector&lt;int&gt;\l
+        + casesPossible: vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;\l
+        + isAvailable : vector&lt;bool&gt;\l
+        - casesQteHistory : vector&lt;vector&lt;int&gt;&gt;\l
+        - casesPossibleHistory: vector&lt;vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;&gt;\l
+        - isAvailableHistory : vector&lt;vector&lt;bool&gt;&gt;\l
+        |
+    }"]
+    cmodel [label = "{CaseModel
+        |
+        + piecesQte: vector&lt;vector&lt;int&gt;&gt;\l
+        + piecesPossible: vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;\l
+        + isAvailable : vector&lt;vector&lt;int&gt;&gt;\l
+        - piecesQteHistory : vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;\l
+        - piecesPossibleHistory: vector&lt;vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;&gt;\l
+        - isAvailableHistory: vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;\l
+        |
+    }"]
+    pvalue [label = "{PieceNormalValue
+        ||
+        + next(PieceData &) : PieceData\l
+    }"]
+    cvariable [label = "{CaseRowscanVariable
+        ||
+        + next(int &depth) : CaseData\l
+    }"]
+
+    pdata [label = PieceData];
+    cdata [label = CaseData];
+
+    // Inherance
+    pcsolver -> solver         [arrowhead = empty]
+    pcconstraint -> constraint [arrowhead = empty]
+
+    {pmodel cmodel} -> model            [arrowhead = empty]
+
+    pvalue -> value            [arrowhead = empty]
+    cvariable -> variable      [arrowhead = empty]
+
+    constraint -> observer     [arrowhead = empty]
+    model -> observable        [arrowhead = empty]
+
+    {pdata cdata} -> data
+
+    // Composed of
+    path -> {pvalue cvariable}[arrowtail=diamond arrowhead=none style=normal headlabel=1 taillabel=1]
+
+    // agregates
+    pcsolver -> {path,pcconstraint} [ arrowtail=odiamond style=normal arrowhead=none headlabel=1 taillabel=1];
+
+    {pcconstraint pvalue}->pmodel [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
+
+    {pcconstraint cvariable}->cmodel [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
+
+    {pcconstraint pmodel pvalue pcsolver path} -> pdata[ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
+
+    {pcconstraint pcsolver path cmodel cvariable}-> cdata [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
+
+}
