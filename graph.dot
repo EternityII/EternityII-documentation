@@ -57,11 +57,11 @@ digraph eternityII{
     */
     path [label = "{PathFinder
         |
-        - variable : unique_ptr&lt;VariableInterface&gt;\l
-        - value : unique_ptr&lt;ValueInterface&gt;\l
+        - variable : unique_ptr&le;VariableInterface&ge;\l
+        - value : unique_ptr&le;ValueInterface&ge;\l
         |
-        + set(unique_ptr&lt;VariableInterface&gt;) : void\l
-        + set(unique_ptr&lt;ValueInterface&gt;) : void\l
+        + set(unique_ptr&le;VariableInterface&ge;) : void\l
+        + set(unique_ptr&le;ValueInterface&ge;) : void\l
         + nextValue(DataInterface &) : DataInterface\l
         + nextVariable(int &) : DataInterface\l
     }"]
@@ -102,7 +102,7 @@ digraph eternityII{
         + next(int &depth) : DataInterface\l
     }"]
 
-    data [label = "{ «DataInterface»}"]
+    data [label = "{ «DataInterface»| + valid: bool\l}"]
 
     observer [label = " { «ObserverInterface»
         ||
@@ -113,7 +113,7 @@ digraph eternityII{
 
     observable [label = "{ «ObservableInterface»
         |
-        # observers:vector&lt;Observer *&gt;\l
+        # observers:vector&le;Observer *&ge;\l
         |
         + add(Observer &) : void\l
         + remove(int &) : void\l
@@ -144,22 +144,22 @@ digraph eternityII{
     }"]
     pmodel [label = "{PieceModel
         |
-        + casesQte: vector&lt;int&gt;\l
-        + casesPossible: vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;\l
-        + isAvailable : vector&lt;bool&gt;\l
-        - casesQteHistory : vector&lt;vector&lt;int&gt;&gt;\l
-        - casesPossibleHistory: vector&lt;vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;&gt;\l
-        - isAvailableHistory : vector&lt;vector&lt;bool&gt;&gt;\l
+        + casesQte: vector&le;int&ge;\l
+        + casesPossible: vector&le;vector&le;vector&le;vector&le;bool&ge;&ge;&ge;&ge;\l
+        + isAvailable : vector&le;bool&ge;\l
+        - casesQteHistory : vector&le;vector&le;int&ge;&ge;\l
+        - casesPossibleHistory: vector&le;vector&le;vector&le;vector&le;vector&le;bool&ge;&ge;&ge;&ge;&ge;\l
+        - isAvailableHistory : vector&le;vector&le;bool&ge;&ge;\l
         |
     }"]
     cmodel [label = "{CaseModel
         |
-        + piecesQte: vector&lt;vector&lt;int&gt;&gt;\l
-        + piecesPossible: vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;\l
-        + isAvailable : vector&lt;vector&lt;int&gt;&gt;\l
-        - piecesQteHistory : vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt;\l
-        - piecesPossibleHistory: vector&lt;vector&lt;vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;&gt;&gt;\l
-        - isAvailableHistory: vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt;\l
+        + piecesQte: vector&le;vector&le;int&ge;&ge;\l
+        + piecesPossible: vector&le;vector&le;vector&le;vector&le;bool&ge;&ge;&ge;&ge;\l
+        + isAvailable : vector&le;vector&le;int&ge;&ge;\l
+        - piecesQteHistory : vector&le;vector&le;vector&le;int&ge;&ge;&ge;\l
+        - piecesPossibleHistory: vector&le;vector&le;vector&le;vector&le;vector&le;bool&ge;&ge;&ge;&ge;&ge;\l
+        - isAvailableHistory: vector&le;vector&le;vector&le;bool&ge;&ge;&ge;\l
         |
     }"]
     pvalue [label = "{PieceNormalValue
@@ -171,8 +171,17 @@ digraph eternityII{
         + next(int &depth) : CaseData\l
     }"]
 
-    pdata [label = PieceData];
-    cdata [label = CaseData];
+    pdata [label = "{PieceData
+        |
+        + id : int\l
+        + rotation : int\l
+
+    }"];
+    cdata [label = "{CaseData
+        |
+        + x: int\l
+        + y: int\l
+    }"];
 
     // Inherance
     pcsolver -> solver         [arrowhead = empty]
@@ -194,9 +203,9 @@ digraph eternityII{
     // agregates
     pcsolver -> {path,pcconstraint} [ arrowtail=odiamond style=normal arrowhead=none headlabel=1 taillabel=1];
 
-    {pcconstraint pvalue}->pmodel [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
+    {pcconstraint pvalue} -> pmodel [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
 
-    {pcconstraint cvariable}->cmodel [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
+    {pcconstraint cvariable} -> cmodel [ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
 
     {pcconstraint pmodel pvalue pcsolver path} -> pdata[ arrowtail=odiamond,style=normal arrowhead=none headlabel=1 taillabel=1];
 

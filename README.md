@@ -4,7 +4,7 @@
 
 - [ ] SF1 stat de résolution smartforce (dual modeling)
   - [ ] choix de variable
-  - [ ] choix de valeur 
+  - [ ] choix de valeur
   - [ ] optimiste/pessimiste
 
 - [ ] SF2
